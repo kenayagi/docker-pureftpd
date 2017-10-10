@@ -27,9 +27,11 @@ RUN mkdir /config
 ADD pure-ftpd.passwd /config/pure-ftpd.passwd
 ADD pure-ftpd.conf /config/pure-ftpd.conf
 ADD pure-ftpd.pem /config/pure-ftpd.pem
+ENV PURE_PASSWDFILE=/config/pure-ftpd.passwd
+ENV PURE_DBFILE=/config/pure-ftpd.pdb
 
 # Virtual users
-RUN pure-pw mkdb /config/pure-ftpd.db -f /config/pure-ftpd.passwd
+RUN pure-pw mkdb
 
 # Ports
 EXPOSE 21 40000-40009
