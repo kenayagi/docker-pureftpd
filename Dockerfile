@@ -4,7 +4,7 @@ FROM debian:stretch
 RUN export DEBIAN_FRONTEND=noninteractive && apt update && apt upgrade
 
 # Install dependencies
-RUN echo -e "deb http://deb.debian.org/debian stretch main\n\
+RUN echo "deb http://deb.debian.org/debian stretch main\n\
 deb-src http://deb.debian.org/debian stretch main\n\
 deb http://deb.debian.org/debian stretch-updates main\n\
 deb-src http://deb.debian.org/debian stretch-updates main\n\
