@@ -37,5 +37,5 @@ EXPOSE 21 40000-40009
 # Volume
 VOLUME /config
 
-# Command
+WORKDIR /config
 CMD ["/usr/local/sbin/pure-ftpd", "/config/pure-ftpd.conf"]
