@@ -1,6 +1,6 @@
 FROM debian:stretch
 
-# Update
+# Update base
 RUN export DEBIAN_FRONTEND=noninteractive && apt update && apt upgrade
 
 # Install dependencies
@@ -19,7 +19,7 @@ ADD https://download.pureftpd.org/pub/pure-ftpd/releases/pure-ftpd-1.0.46.tar.gz
 RUN mkdir /usr/local/src/pure-ftpd
 RUN tar xfv /tmp/pure-ftpd.tar.gz --strip 1 -C /usr/local/src/pure-ftpd
 WORKDIR /usr/local/src/pure-ftpd
-RUN ./configure --without-capabilities --without-inetd --without-shadow --with-language=italian --with-quotas --with-throttling --with-tls
+RUN ./configure --without-capabilities --without-inetd --without-shadow --with-language=italian --with-peruserlimits --with-puredb --with-quotas --with-throttling --with-tls
 RUN make
 RUN make install
 
@@ -28,5 +28,8 @@ RUN pure-pw mkdb
 
 # Ports
 EXPOSE 21 40000-40009
+
+# Volume
+VOLUME /config
 
 /usr/local/sbin/pure-ftpd -c 5 -C 5 -l puredb:/etc/pure-ftpd/pureftpd.pdb -E -j -R -P wsa.pretecno.com -p 40000:40009 -tls 1
