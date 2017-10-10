@@ -3,6 +3,10 @@ FROM debian:stretch
 # Update base
 RUN export DEBIAN_FRONTEND=noninteractive && apt update && apt upgrade
 
+# Syslog
+ADD https://github.com/timonier/syslog-stdout/releases/download/v1.1.1/syslog-stdout.tar.gz /tmp/syslog-stdout.tar.gz
+RUN tar fxz /tmp/syslog-stdout.tar.gz -C /usr/sbin
+
 # Install dependencies
 RUN echo "deb http://deb.debian.org/debian stretch main\n\
 deb-src http://deb.debian.org/debian stretch main\n\
