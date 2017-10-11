@@ -23,7 +23,7 @@ ADD https://download.pureftpd.org/pub/pure-ftpd/releases/pure-ftpd-1.0.46.tar.gz
 RUN mkdir /usr/local/src/pureftpd
 RUN tar xfv /tmp/pureftpd.tar.gz --strip 1 -C /usr/local/src/pureftpd
 WORKDIR /usr/local/src/pureftpd
-RUN ./configure --without-capabilities --without-inetd --without-shadow --with-altlog --with-language=italian --with-peruserlimits --with-puredb --with-rfc2640 --with-quotas --with-throttling --with-tls
+RUN ./configure --without-capabilities --without-inetd --without-shadow --with-altlog --with-language=italian --with-peruserlimits --with-puredb --with-rfc2640 --with-quotas --with-throttling --with-tls TLS_CONFDIR=/config DEFAULT_CERT_FILE=/config/pureftpd.pem TLS_DHPARAMS_FILE=/config/dhparams.pem
 RUN make install
 
 # Add conf
@@ -31,10 +31,10 @@ RUN mkdir /config
 ADD pureftpd.passwd /config/pureftpd.passwd
 ADD pureftpd.conf /config/pureftpd.conf
 ADD pureftpd.pem /config/pureftpd.pem
+ADD dhparams.pem /config/dhparams.pem
 ADD run.sh /run.sh
 ENV PURE_PASSWDFILE=/config/pureftpd.passwd
 ENV PURE_DBFILE=/config/pureftpd.pdb
-RUN openssl dhparam -out /etc/ssl/private/pure-ftpd-dhparams.pem 2048
 
 # Virtual users
 RUN pure-pw mkdb
