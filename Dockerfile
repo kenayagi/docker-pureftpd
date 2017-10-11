@@ -31,6 +31,7 @@ RUN mkdir /config
 ADD pureftpd.passwd /config/pureftpd.passwd
 ADD pureftpd.conf /config/pureftpd.conf
 ADD pureftpd.pem /config/pureftpd.pem
+ADD run.sh /run.sh
 ENV PURE_PASSWDFILE=/config/pureftpd.passwd
 ENV PURE_DBFILE=/config/pureftpd.pdb
 RUN openssl dhparam -out /etc/ssl/private/pure-ftpd-dhparams.pem 2048
@@ -44,5 +45,6 @@ EXPOSE 21 40000-40009
 # Volume
 VOLUME /config
 
+# Command
 WORKDIR /config
-CMD ["/usr/local/sbin/pure-ftpd", "/config/pureftpd.conf"]
+CMD ["/bin/sh", "/run.sh"]
