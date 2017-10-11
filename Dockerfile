@@ -19,20 +19,20 @@ RUN apt update
 RUN apt -y build-dep pure-ftpd
 
 # Get code
-ADD https://download.pureftpd.org/pub/pure-ftpd/releases/pure-ftpd-1.0.46.tar.gz /tmp/pure-ftpd.tar.gz
-RUN mkdir /usr/local/src/pure-ftpd
-RUN tar xfv /tmp/pure-ftpd.tar.gz --strip 1 -C /usr/local/src/pure-ftpd
-WORKDIR /usr/local/src/pure-ftpd
+ADD https://download.pureftpd.org/pub/pure-ftpd/releases/pure-ftpd-1.0.46.tar.gz /tmp/pureftpd.tar.gz
+RUN mkdir /usr/local/src/pureftpd
+RUN tar xfv /tmp/pureftpd.tar.gz --strip 1 -C /usr/local/src/pureftpd
+WORKDIR /usr/local/src/pureftpd
 RUN ./configure --without-capabilities --without-inetd --without-shadow --with-altlog --with-language=italian --with-peruserlimits --with-puredb --with-rfc2640 --with-quotas --with-throttling --with-tls
 RUN make install
 
 # Add conf
 RUN mkdir /config
-ADD pure-ftpd.passwd /config/pure-ftpd.passwd
-ADD pure-ftpd.conf /config/pure-ftpd.conf
-ADD pure-ftpd.pem /config/pure-ftpd.pem
-ENV PURE_PASSWDFILE=/config/pure-ftpd.passwd
-ENV PURE_DBFILE=/config/pure-ftpd.pdb
+ADD pureftpd.passwd /config/pureftpd.passwd
+ADD pureftpd.conf /config/pureftpd.conf
+ADD pureftpd.pem /config/pureftpd.pem
+ENV PURE_PASSWDFILE=/config/pureftpd.passwd
+ENV PURE_DBFILE=/config/pureftpd.pdb
 
 # Virtual users
 RUN pure-pw mkdb
@@ -44,4 +44,4 @@ EXPOSE 21 40000-40009
 VOLUME /config
 
 WORKDIR /config
-CMD ["/usr/local/sbin/pure-ftpd", "/config/pure-ftpd.conf"]
+CMD ["/usr/local/sbin/pure-ftpd", "/config/pureftpd.conf"]
