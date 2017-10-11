@@ -23,7 +23,10 @@ ADD https://download.pureftpd.org/pub/pure-ftpd/releases/pure-ftpd-1.0.46.tar.gz
 RUN mkdir /usr/local/src/pureftpd
 RUN tar xfv /tmp/pureftpd.tar.gz --strip 1 -C /usr/local/src/pureftpd
 WORKDIR /usr/local/src/pureftpd
-RUN ./configure --without-capabilities --without-inetd --without-shadow --with-altlog --with-language=italian --with-peruserlimits --with-puredb --with-rfc2640 --with-quotas --with-throttling --with-tls TLS_CONFDIR=/config DEFAULT_CERT_FILE=/config/pureftpd.pem TLS_DHPARAMS_FILE=/config/dhparams.pem
+RUN sed -i 's/TLS_CONFDIR \"\/etc\/ssl\/private\"/TLS_CONFDIR \"\/config\"/' /usr/local/src/pure-ftpd/src/ftpd.h
+RUN sed -i 's/TLS_CERTIFICATE_FILE TLS_CONFDIR \"\/pure-ftpd.pem\"/TLS_CERTIFICATE_FILE TLS_CONFDIR \"\/pureftpd.pem\"/' /usr/local/src/pure-ftpd/src/ftpd.h
+RUN sed -i 's/TLS_DHPARAMS_FILE TLS_CONFDIR \"\/pure-ftpd-dhparams.pem\"/TLS_DHPARAMS_FILE TLS_CONFDIR \"\/dhparams.pem\"/' /usr/local/src/pure-ftpd/src/ftpd.h
+RUN ./configure --without-capabilities --without-inetd --without-shadow --with-altlog --with-language=italian --with-peruserlimits --with-puredb --with-rfc2640 --with-quotas --with-throttling --with-tls
 RUN make install
 
 # Add conf
