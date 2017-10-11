@@ -26,7 +26,7 @@ WORKDIR /usr/local/src/pureftpd
 RUN sed -i 's/TLS_CONFDIR \"\/etc\/ssl\/private\"/TLS_CONFDIR \"\/config\"/' /usr/local/src/pureftpd/src/ftpd.h
 RUN sed -i 's/TLS_CERTIFICATE_FILE TLS_CONFDIR \"\/pure-ftpd.pem\"/TLS_CERTIFICATE_FILE TLS_CONFDIR \"\/pureftpd.pem\"/' /usr/local/src/pureftpd/src/ftpd.h
 RUN sed -i 's/TLS_DHPARAMS_FILE TLS_CONFDIR \"\/pure-ftpd-dhparams.pem\"/TLS_DHPARAMS_FILE TLS_CONFDIR \"\/dhparams.pem\"/' /usr/local/src/pureftpd/src/ftpd.h
-RUN ./configure --without-capabilities --without-inetd --without-shadow --with-altlog --with-language=italian --with-peruserlimits --with-puredb --with-rfc2640 --with-quotas --with-throttling --with-tls
+RUN ./configure --without-capabilities --without-inetd --without-shadow --with-altlog --with-peruserlimits --with-puredb --with-rfc2640 --with-quotas --with-throttling --with-tls
 RUN make install
 
 # Add conf
