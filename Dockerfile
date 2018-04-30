@@ -19,7 +19,7 @@ RUN apt update
 RUN apt -y build-dep pure-ftpd
 
 # Get code
-ADD https://download.pureftpd.org/pub/pure-ftpd/releases/pure-ftpd-1.0.46.tar.gz /tmp/pureftpd.tar.gz
+ADD https://download.pureftpd.org/pub/pure-ftpd/releases/pure-ftpd-1.0.47.tar.gz /tmp/pureftpd.tar.gz
 RUN mkdir /usr/local/src/pureftpd
 RUN tar xfv /tmp/pureftpd.tar.gz --strip 1 -C /usr/local/src/pureftpd
 WORKDIR /usr/local/src/pureftpd
