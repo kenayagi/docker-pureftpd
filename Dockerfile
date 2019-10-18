@@ -1,7 +1,7 @@
 FROM debian:stretch
 
 # Update base
-RUN export DEBIAN_FRONTEND=noninteractive && apt update && apt upgrade
+RUN export DEBIAN_FRONTEND=noninteractive && apt update && apt -y upgrade
 
 # Syslog
 ADD https://github.com/timonier/syslog-stdout/releases/download/v1.1.1/syslog-stdout.tar.gz /tmp/syslog-stdout.tar.gz
@@ -19,7 +19,7 @@ RUN apt update
 RUN apt -y build-dep pure-ftpd
 
 # Get code
-ADD https://download.pureftpd.org/pub/pure-ftpd/releases/pure-ftpd-1.0.47.tar.gz /tmp/pureftpd.tar.gz
+ADD https://download.pureftpd.org/pub/pure-ftpd/releases/pure-ftpd-1.0.49.tar.gz /tmp/pureftpd.tar.gz
 RUN mkdir /usr/local/src/pureftpd
 RUN tar xfv /tmp/pureftpd.tar.gz --strip 1 -C /usr/local/src/pureftpd
 WORKDIR /usr/local/src/pureftpd
